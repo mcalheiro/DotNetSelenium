@@ -32,7 +32,7 @@ namespace DotNetSelenium
             // Verify the logout was successful
             Assert.That(driver.FindElement(By.Id("flash")).Text, Does.Contain("You logged out of the secure area!"));
             // Close the browser
-            driver.Quit();        
+            driver.Quit();
         }
         [Test]
         public void TestEAWebsite()
