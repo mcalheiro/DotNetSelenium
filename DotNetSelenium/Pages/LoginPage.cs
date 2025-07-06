@@ -17,6 +17,9 @@ namespace DotNetSelenium.Pages
         IWebElement UsernameField => driver.FindElement(By.Id("UserName"));
         IWebElement PasswordField => driver.FindElement(By.Id("Password"));
         IWebElement LoginButton => driver.FindElement(By.CssSelector(".btn"));
+        IWebElement EmployeeDetailsLink => driver.FindElement(By.LinkText("Employee Details"));
+        IWebElement ManageUsersLink => driver.FindElement(By.LinkText("Manage Users"));
+        IWebElement LogOffLink => driver.FindElement(By.LinkText("Log off"));
 
         // Methods (actions)
         public void ClickLoginLink()
@@ -29,6 +32,11 @@ namespace DotNetSelenium.Pages
             UsernameField.EnterText(username);
             PasswordField.EnterText(password);
             LoginButton.SubmitElement();
+        }
+
+        public bool IsLoggedIn()
+        {
+            return EmployeeDetailsLink.Displayed && ManageUsersLink.Displayed;
         }
 
     }

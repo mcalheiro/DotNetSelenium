@@ -1,5 +1,4 @@
 ﻿using DotNetSelenium.Pages;
-using Microsoft.VisualBasic;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Text.Json;
@@ -26,7 +25,7 @@ namespace DotNetSelenium
             LoginPage loginPage = new LoginPage(driver);
             loginPage.ClickLoginLink();
             loginPage.Login(loginModel.username, loginModel.password);
-            driver.Quit();
+            Assert.IsTrue(loginPage.IsLoggedIn());
         }
 
         [Test]
@@ -37,13 +36,13 @@ namespace DotNetSelenium
             LoginPage loginPage = new LoginPage(driver);
             loginPage.ClickLoginLink();
             loginPage.Login(loginModel.username, loginModel.password);
-            driver.Quit();
+            Assert.IsTrue(loginPage.IsLoggedIn());
         }
 
         public static IEnumerable<LoginModel> Login()
         {
             yield return new LoginModel()
-            { 
+            {
                 username = "admin",
                 password = "password"
             };

@@ -32,7 +32,6 @@ namespace DotNetSelenium
             LoginPage loginPage = new LoginPage(driver);
             loginPage.ClickLoginLink();
             loginPage.Login(username, password);
-            driver.Quit();
         }
 
         [TearDown]
