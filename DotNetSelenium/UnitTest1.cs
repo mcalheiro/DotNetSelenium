@@ -1,3 +1,4 @@
+using DotNetSelenium.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -34,6 +35,7 @@ namespace DotNetSelenium
             // Close the browser
             driver.Quit();
         }
+
         [Test]
         public void TestEAWebsite()
         {
@@ -46,6 +48,17 @@ namespace DotNetSelenium
             driver.FindElement(By.CssSelector("input[type='submit']")).Click();
             Assert.That(driver.FindElement(By.CssSelector("a[href='/Manage']")).Text, Does.Contain("Hello admin!"));
             driver.FindElement(By.LinkText("Log off")).Click();
+            driver.Quit();
+        }
+
+        [Test]
+        public void TestWithPOM()
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Navigate().GoToUrl("http://eaapp.somee.com/");
+            LoginPage loginPage = new LoginPage(driver);
+            loginPage.ClickLoginLink();
+            loginPage.Login("admin", "password");
             driver.Quit();
         }
     }
