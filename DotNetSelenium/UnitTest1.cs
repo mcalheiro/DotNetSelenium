@@ -1,35 +1,44 @@
 using DotNetSelenium.Pages;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 
 namespace DotNetSelenium
 {
+    [TestFixture("admin", "password")]
     public class Tests
     {
-        private IWebDriver _driver;
+        private IWebDriver driver;
+        private string username;
+        private string password;
+
+        public Tests(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
+        }
 
         [SetUp]
         public void Setup()
         {
-            _driver = new FirefoxDriver();
-            _driver.Navigate().GoToUrl("http://eaapp.somee.com/");
-            _driver.Manage().Window.Maximize();
+            driver = new FirefoxDriver();
+            driver.Navigate().GoToUrl("http://eaapp.somee.com/");
+            driver.Manage().Window.Maximize();
         }
 
         [Test]
+        [Category("POM")]
         public void TestWithPOM()
         {
-            LoginPage loginPage = new LoginPage(_driver);
+            LoginPage loginPage = new LoginPage(driver);
             loginPage.ClickLoginLink();
-            loginPage.Login("admin", "password");
-            _driver.Quit();
+            loginPage.Login(username, password);
+            driver.Quit();
         }
 
         [TearDown]
         public void TearDown()
         {
-            _driver.Quit();
+            driver.Quit();
         }
     }
 }
