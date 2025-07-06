@@ -1,8 +1,6 @@
 using DotNetSelenium.Pages;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
 
-namespace DotNetSelenium
+namespace DotNetSelenium.Tests
 {
     [TestFixture("admin", "password")]
     public class Tests

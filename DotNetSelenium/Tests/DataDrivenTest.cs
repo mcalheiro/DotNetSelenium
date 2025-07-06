@@ -1,10 +1,9 @@
-﻿using DotNetSelenium.Pages;
+﻿using DotNetSelenium.Models;
+using DotNetSelenium.Pages;
 using FluentAssertions;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using System.Text.Json;
 
-namespace DotNetSelenium
+namespace DotNetSelenium.Tests
 {
     public class DataDrivenTest
     {
@@ -75,7 +74,7 @@ namespace DotNetSelenium
 
         public static IEnumerable<LoginModel> LoginJSON()
         {
-            string JsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "login.json");
+            string JsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "login.json");
             var jsonString = File.ReadAllText(JsonFilePath);
             var loginModel = JsonSerializer.Deserialize<List<LoginModel>>(jsonString, new JsonSerializerOptions
             {
@@ -90,7 +89,7 @@ namespace DotNetSelenium
 
         private void ReadJsonDile()
         {
-            string JsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "login.json");
+            string JsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "login.json");
             var jsonString = File.ReadAllText(JsonFilePath);
             var loginModel = JsonSerializer.Deserialize<List<LoginModel>>(jsonString);
         }

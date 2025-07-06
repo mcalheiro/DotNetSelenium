@@ -1,7 +1,6 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium.Support.UI;
 
-namespace DotNetSelenium
+namespace DotNetSelenium.Utils
 {
     public static class SeleniumCustomMethods
     {
@@ -36,9 +35,9 @@ namespace DotNetSelenium
             }
         }
 
-        public static List<String> GetSelectedItems(IWebElement locator)
+        public static List<string> GetSelectedItems(IWebElement locator)
         {
-            List<String> selectedItems = new List<String>();
+            List<string> selectedItems = new List<string>();
             SelectElement dropdown = new SelectElement(locator);
             IList<IWebElement> selecteItems = dropdown.AllSelectedOptions;
             foreach (IWebElement item in selecteItems)

@@ -1,17 +1,9 @@
-﻿using OpenQA.Selenium;
+﻿using DotNetSelenium.Utils;
 
 namespace DotNetSelenium.Pages
 {
-    internal class LoginPage
+    internal class LoginPage(IWebDriver driver)
     {
-        private readonly IWebDriver driver;
-
-        // Constructor to initialize the driver
-        public LoginPage(IWebDriver driver)
-        {
-            this.driver = driver;
-        }
-
         // Locators (page elements)
         IWebElement LoginLink => driver.FindElement(By.Id("loginLink"));
         IWebElement UsernameField => driver.FindElement(By.Id("UserName"));
