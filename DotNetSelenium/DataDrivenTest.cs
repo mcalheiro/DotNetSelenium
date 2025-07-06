@@ -1,6 +1,8 @@
 ﻿using DotNetSelenium.Pages;
+using Microsoft.VisualBasic;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.Text.Json;
 
 namespace DotNetSelenium
 {
@@ -19,7 +21,18 @@ namespace DotNetSelenium
         [Test]
         [Category("ddt")]
         [TestCaseSource(nameof(Login))]
-        public void TestWithPOM(LoginModel loginModel)
+        public void TestWithModel(LoginModel loginModel)
+        {
+            LoginPage loginPage = new LoginPage(driver);
+            loginPage.ClickLoginLink();
+            loginPage.Login(loginModel.username, loginModel.password);
+            driver.Quit();
+        }
+
+        [Test]
+        [Category("ddt")]
+        [TestCaseSource(nameof(LoginJSON))]
+        public void TestWithJSON(LoginModel loginModel)
         {
             LoginPage loginPage = new LoginPage(driver);
             loginPage.ClickLoginLink();
@@ -39,6 +52,29 @@ namespace DotNetSelenium
                 username = "admin2",
                 password = "password2"
             };
+            yield return new LoginModel()
+            {
+                username = "admin3",
+                password = "password3"
+            };
+        }
+
+        public static IEnumerable<LoginModel> LoginJSON()
+        {
+            string JsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "login.json");
+            var jsonString = File.ReadAllText(JsonFilePath);
+            var loginModel = JsonSerializer.Deserialize<List<LoginModel>>(jsonString);
+            foreach (var userdata in loginModel)
+            {
+                yield return userdata;
+            }
+        }
+
+        private void ReadJsonDile()
+        {
+            string JsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "login.json");
+            var jsonString = File.ReadAllText(JsonFilePath);
+            var loginModel = JsonSerializer.Deserialize<List<LoginModel>>(jsonString);
         }
 
         [TearDown]
