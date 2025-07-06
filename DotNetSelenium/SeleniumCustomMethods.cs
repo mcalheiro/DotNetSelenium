@@ -3,31 +3,31 @@ using OpenQA.Selenium.Support.UI;
 
 namespace DotNetSelenium
 {
-    internal class SeleniumCustomMethods
+    public static class SeleniumCustomMethods
     {
-        public static void Click(IWebElement locator)
+        public static void ClickElement(this IWebElement locator)
         {
             locator.Click();
         }
 
-        public static void Submit(IWebElement locator)
+        public static void SubmitElement(this IWebElement locator)
         {
             locator.Submit();
         }
 
-        public static void EnterText(IWebElement locator, string text)
+        public static void EnterText(this IWebElement locator, string text)
         {
             locator.Clear();
             locator.SendKeys(text);
         }
 
-        public static void SelectDropdownByText(IWebElement locator, string text)
+        public static void SelectDropdownByText(this IWebElement locator, string text)
         {
             SelectElement dropdown = new SelectElement(locator);
             dropdown.SelectByText(text);
         }
 
-        public static void MultiSelectDropdown(IWebElement locator, string[] values)
+        public static void MultiSelectDropdown(this IWebElement locator, string[] values)
         {
             SelectElement dropdown = new SelectElement(locator);
             foreach (string value in values)

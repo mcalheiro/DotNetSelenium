@@ -21,14 +21,14 @@ namespace DotNetSelenium.Pages
         // Methods (actions)
         public void ClickLoginLink()
         {
-            SeleniumCustomMethods.Click(LoginLink);
+            LoginLink.ClickElement();
         }
 
         public void Login(string username, string password)
         {
-            SeleniumCustomMethods.EnterText(UsernameField, username);
-            SeleniumCustomMethods.EnterText(PasswordField, password);
-            SeleniumCustomMethods.Submit(LoginButton);
+            UsernameField.EnterText(username);
+            PasswordField.EnterText(password);
+            LoginButton.SubmitElement();
         }
 
     }
