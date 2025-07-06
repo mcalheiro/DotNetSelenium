@@ -13,6 +13,7 @@ namespace DotNetSelenium.Tests
         public void Setup()
         {
             driver = new ChromeDriver();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Navigate().GoToUrl("http://eaapp.somee.com/");
             driver.Manage().Window.Maximize();
         }
