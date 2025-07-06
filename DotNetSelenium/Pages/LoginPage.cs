@@ -34,9 +34,9 @@ namespace DotNetSelenium.Pages
             LoginButton.SubmitElement();
         }
 
-        public bool IsLoggedIn()
+        public (bool employeeDetails, bool manageUsers) IsLoggedIn()
         {
-            return EmployeeDetailsLink.Displayed && ManageUsersLink.Displayed;
+            return (EmployeeDetailsLink.Displayed, ManageUsersLink.Displayed);
         }
 
     }

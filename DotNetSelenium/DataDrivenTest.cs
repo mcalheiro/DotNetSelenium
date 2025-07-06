@@ -1,4 +1,5 @@
 ﻿using DotNetSelenium.Pages;
+using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Text.Json;
@@ -25,7 +26,7 @@ namespace DotNetSelenium
             LoginPage loginPage = new LoginPage(driver);
             loginPage.ClickLoginLink();
             loginPage.Login(loginModel.username, loginModel.password);
-            Assert.IsTrue(loginPage.IsLoggedIn());
+            Assert.IsTrue(loginPage.IsLoggedIn().manageUsers);
         }
 
         [Test]
@@ -36,7 +37,21 @@ namespace DotNetSelenium
             LoginPage loginPage = new LoginPage(driver);
             loginPage.ClickLoginLink();
             loginPage.Login(loginModel.username, loginModel.password);
-            Assert.IsTrue(loginPage.IsLoggedIn());
+            Assert.IsTrue(loginPage.IsLoggedIn().employeeDetails);
+        }
+
+        [Test]
+        [Category("ddt")]
+        [TestCaseSource(nameof(LoginJSON))]
+        public void TestWithFA(LoginModel loginModel)
+        {
+            LoginPage loginPage = new LoginPage(driver);
+            loginPage.ClickLoginLink();
+            loginPage.Login(loginModel.username, loginModel.password);
+            var getLoggedIn = loginPage.IsLoggedIn();
+            // Fancy assertions
+            getLoggedIn.employeeDetails.Should().BeTrue();
+            getLoggedIn.manageUsers.Should().BeTrue();
         }
 
         public static IEnumerable<LoginModel> Login()
