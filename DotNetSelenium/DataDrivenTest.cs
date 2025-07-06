@@ -63,7 +63,11 @@ namespace DotNetSelenium
         {
             string JsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "login.json");
             var jsonString = File.ReadAllText(JsonFilePath);
-            var loginModel = JsonSerializer.Deserialize<List<LoginModel>>(jsonString);
+            var loginModel = JsonSerializer.Deserialize<List<LoginModel>>(jsonString, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                AllowTrailingCommas = true
+            });
             foreach (var userdata in loginModel)
             {
                 yield return userdata;
