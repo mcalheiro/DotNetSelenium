@@ -34,7 +34,7 @@ namespace DotNetSelenium
         public static List<String> GetSelectedItems(IWebDriver driver, By locator)
         {
             List<String> selectedItems = new List<String>();
-            SelectElement dropdown = new SelectElement(driver.FindElement(locator);
+            SelectElement dropdown = new SelectElement(driver.FindElement(locator));
             IList<IWebElement> selecteItems = dropdown.AllSelectedOptions;
             foreach (IWebElement item in selecteItems)
             {
