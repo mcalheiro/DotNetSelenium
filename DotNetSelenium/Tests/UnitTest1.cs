@@ -1,4 +1,6 @@
 using DotNetSelenium.Pages;
+using FluentAssertions;
+using OpenQA.Selenium.Support.UI;
 
 namespace DotNetSelenium.Tests
 {
@@ -30,6 +32,15 @@ namespace DotNetSelenium.Tests
             LoginPage loginPage = new LoginPage(driver);
             loginPage.ClickLoginLink();
             loginPage.Login(username, password);
+
+            // Explicit wait
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+            {
+                PollingInterval = TimeSpan.FromMilliseconds(500),
+                Message = "Login failed, Employee Details link not found."
+            };
+            wait.Until(d => d.FindElement(By.LinkText("Employee Detailssss")).Displayed);
+            loginPage.IsLoggedIn().employeeDetails.Should().BeTrue();
         }
 
         [TearDown]
