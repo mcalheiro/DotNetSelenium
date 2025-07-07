@@ -1,6 +1,4 @@
-﻿using OpenQA.Selenium.Support.UI;
-
-namespace DotNetSelenium.Utils
+﻿namespace DotNetSelenium.Utils
 {
     public static class SeleniumCustomMethods
     {
