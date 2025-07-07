@@ -1,6 +1,9 @@
+using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
 using DotNetSelenium.Driver;
 using DotNetSelenium.Pages;
 using FluentAssertions;
+using System.Data;
 
 namespace DotNetSelenium.Tests
 {
@@ -11,6 +14,8 @@ namespace DotNetSelenium.Tests
         private string username;
         private string password;
         private DriverType driverType;
+        private ExtentReports extentReport;
+        private ExtentTest extentTest;
 
         public Tests(string username, string password, DriverType driverType)
         {
@@ -22,6 +27,8 @@ namespace DotNetSelenium.Tests
         [SetUp]
         public void Setup()
         {
+            SetupExtentReports();
+            extentTest.Log(Status.Info, "Starting test setup");
             driver = GetDriverType(driverType);
             driver.Navigate().GoToUrl("http://eaapp.somee.com/");
             driver.Manage().Window.Maximize();
@@ -47,6 +54,14 @@ namespace DotNetSelenium.Tests
             }
         }
 
+        private void SetupExtentReports()
+        {
+            extentReport = new ExtentReports();
+            var spark = new ExtentSparkReporter("TestReport.html");
+            extentReport.AttachReporter(spark);
+            extentTest = extentReport.CreateTest("Login Test");
+        }
+
         [Test]
         [Category("POM")]
         public void TestWithPOM()
@@ -69,6 +84,8 @@ namespace DotNetSelenium.Tests
         public void TearDown()
         {
             driver.Quit();
+            driver.Dispose();
+            extentReport.Flush();
         }
     }
 }

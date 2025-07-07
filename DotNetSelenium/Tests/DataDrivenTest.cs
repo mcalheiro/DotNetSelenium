@@ -99,6 +99,7 @@ namespace DotNetSelenium.Tests
         public void TearDown()
         {
             driver.Quit();
+            driver.Dispose();
         }
     }
 }
